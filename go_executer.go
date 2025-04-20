@@ -45,6 +45,6 @@ func ExecSh(file_path string) {
 
 	<-scannerStopped
 
-	go_logger.Info("Execution finished")
+	defer go_logger.Info("Execution finished")
 }
 
