@@ -2,7 +2,7 @@ package go_executer
 
 import (
 	"fmt"
-	"multi_package_example/logger"
+	"github.com/99-m4n/go_logger"
 	"os/exec"
 	"os"
 	"io"
@@ -12,12 +12,12 @@ import (
 )
 
 func ExecSh(file_path string) {
-	logger.Info(fmt.Sprintf("File path: %s\n", file_path))
+	go_logger.Info(fmt.Sprintf("File path: %s\n", file_path))
 
 	file_content, err := os.ReadFile(file_path)
-	if err != nil {logger.Error(fmt.Sprintf("%s", err))}
+	if err != nil {go_logger.Error(fmt.Sprintf("%s", err))}
 
-	logger.Info(fmt.Sprintf("File content:\n\n%s\n\n", file_content))
+	go_logger.Info(fmt.Sprintf("File content:\n\n%s\n\n", file_content))
 
 	reader, writer := io.Pipe()
 	cmdCtx, cmdDone := context.WithCancel(context.Background())
@@ -44,4 +44,7 @@ func ExecSh(file_path string) {
 	<-cmdCtx.Done()
 
 	<-scannerStopped
+
+	go_logger.Info("Execution finished")
 }
+
